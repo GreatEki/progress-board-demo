@@ -1,11 +1,11 @@
-import { useState, useEffect, Suspense } from 'react'
+import { useState, useEffect } from 'react'
 import { DragDropContext } from "react-beautiful-dnd";
 import styles from "./Kanbanboard.module.css";
 import Column from "../column/Column";
 
 const KanbanBoard = () => {
-  const [completed, setCompleted] = useState(false);
-  const [incomplete, setIncomplete] = useState(false);
+  const [completed, setCompleted] = useState([]);
+  const [incomplete, setIncomplete] = useState([]);
 
   useEffect(() => {
     fetch('https://jsonplaceholder.typicode.com/todos')
@@ -15,6 +15,10 @@ const KanbanBoard = () => {
         setIncomplete(json.filter(task => !task.completed))
       })
   }, [])
+
+  if (!completed?.length || !incomplete?.length) {
+    return (<div>Loading...</div>)
+  }
 
 
 
@@ -55,13 +59,11 @@ const KanbanBoard = () => {
     <DragDropContext onDragEnd={handleDragEnd}>
       <h1 className={styles.kanban_title}> Progress Board </h1>
 
-      <Suspense fallback={<div> Loading... </div> }>
       <div className={styles.kanban_content}>
         <Column id="1" title="Pending" tasks={incomplete} bgColor='purple' />
         <Column id="2" title="Completed" tasks={completed} bgColor='' />
         <Column id="3" title="Backlog" tasks={[]} />
       </div>
-      </Suspense>
 
     </DragDropContext>
   );
