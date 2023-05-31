@@ -3,23 +3,29 @@ import propTypes from "prop-types";
 import Task from '../task/Task';
 import styles from "./Column.module.css";
 
-const Column = ({ title, id }) => {
+const Column = ({ title, id, tasks, bgColor }) => {
   return (
     <div className={styles.container}>
       <h3 className={styles.column_title}>{title}</h3>
 
       <Droppable droppableId={id}>
-        {(provided, snapshot) => {
+        {(provided, snapshot) => (
           <div
+          className={styles.taskList}
             ref={provided.innerRef}
             {...provided.droppableProps}
-            isDragging={snapshot.isDraggingOver}
+            isdraggingover={snapshot.isDraggingOver.toString()}
           >
             {/* provide your tasks */}
-            <Task task={{id: 1, title: 'Make a progress board application'}} index='1' />
+            {
+              tasks && tasks.map((task, index) => (
+                <Task key={index} task={task} index={index} />
+
+              ))
+            }
             {provided.placeholder}
-          </div>;
-        }}
+          </div>
+        )}
       </Droppable>
     </div>
   );
@@ -27,7 +33,8 @@ const Column = ({ title, id }) => {
 
 Column.propTypes = {
   title: propTypes.string,
-  task: propTypes.any,
+  tasks: propTypes.any,
   id: propTypes.string,
+  bgColor: propTypes.string
 };
 export default Column;

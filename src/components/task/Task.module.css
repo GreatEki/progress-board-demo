@@ -10,6 +10,15 @@
     display: flex;
     justify-content: space-between;
     flex-direction: column;
+    /* background-color: yellowgreen; */
+}
+
+.pending {
+    background-color: gold;
+}
+
+.completed {
+    background-color: yellowgreen;
 }
 
 .task_id {
