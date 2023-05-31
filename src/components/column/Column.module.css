@@ -9,6 +9,10 @@
     border: 1px solid gray;
 }
 
+.container::-webkit-scrollbar {
+    display: none;
+}
+
 .column_title {
     padding: 8px;
     background-color: pink;
