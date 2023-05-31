@@ -1,0 +1,11 @@
+
+
+.kanban_title {
+    text-align: center;
+}
+
+.kanban_content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
